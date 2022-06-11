@@ -34,4 +34,14 @@ class Enigma
 		return offsets
 	end
 
+	def final_shifts(key, date)
+		final_shifts = []
+		the_keys = generate_keys(key)
+		the_offsets = generate_offsets(date)
+		the_keys.each_index do |i|
+			final_shifts << the_keys[i].to_i + the_offsets[i]
+		end
+		return final_shifts
+	end
+
 end
