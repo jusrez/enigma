@@ -5,7 +5,7 @@ class Enigma
 		@character_set = ("a".."z").to_a << " "
 	end
 
-	# def encrypt(message, key = generate_key, date = generate_date)
+	# def encrypt(message, key = five_digit_number, date = generate_date)
 	#
 	# end
 
@@ -22,10 +22,16 @@ class Enigma
 		Date.today.strftime("%d%m%y")
 	end
 
-	def generate_keys(numbers)
+	def generate_keys(key)
 		keys = []
-		numbers.split("").each_cons(2){|num_set| keys << num_set.join}
+		key.split("").each_cons(2){|num_set| keys << num_set.join}
 		return keys
+	end
+
+	def generate_offsets(date)
+		date_squared = date.to_i ** 2
+		offsets = date_squared.digits.reverse.last(4)
+		return offsets
 	end
 
 end
