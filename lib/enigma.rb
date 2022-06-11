@@ -1,3 +1,4 @@
+require 'date'
 class Enigma
 
 	def initialize
@@ -15,6 +16,10 @@ class Enigma
 			key_set << num_set.sample
 		end
 		return key_set.to_s.delete(",[] ")
+	end
+
+	def generate_date
+		Date.today.strftime("%d%m%y")
 	end
 
 end
