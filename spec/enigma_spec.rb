@@ -32,5 +32,17 @@ RSpec.describe Enigma do
 		expect(enigma.generate_keys("02715")[3]).to eq("15")
 	end
 
+	it 'will create offsets from the date of transmission' do
+		enigma = Enigma.new
+
+		expect(enigma.generate_offsets("040895")).to be_a(Array)
+		expect(enigma.generate_offsets("040895").count).to eq(4)
+		expect(enigma.generate_offsets("040895")[0]).to eq(1)
+		expect(enigma.generate_offsets("040895")[1]).to eq(0)
+		expect(enigma.generate_offsets("040895")[2]).to eq(2)
+		expect(enigma.generate_offsets("040895")[3]).to eq(5)
+
+	end
+
 
 end
