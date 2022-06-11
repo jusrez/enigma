@@ -24,12 +24,12 @@ RSpec.describe Enigma do
 	it 'will take a five digit number and create four keys from it' do
 		enigma = Enigma.new
 
-		expect(enigma.generate_keys(02715)).to be_a(Hash)
-		expect(enigma.generate_keys(02715).keys.count).to eq(4)
-		expect(enigma.generate_keys(02715)["A"]).to eq(02)
-		expect(enigma.generate_keys(02715)["B"]).to eq(27)
-		expect(enigma.generate_keys(02715)["C"]).to eq(71)
-		expect(enigma.generate_keys(02715)["D"]).to eq(15)
+		expect(enigma.generate_keys("02715")).to be_a(Array)
+		expect(enigma.generate_keys("02715").count).to eq(4)
+		expect(enigma.generate_keys("02715")[0]).to eq("02")
+		expect(enigma.generate_keys("02715")[1]).to eq("27")
+		expect(enigma.generate_keys("02715")[2]).to eq("71")
+		expect(enigma.generate_keys("02715")[3]).to eq("15")
 	end
 
 
