@@ -2,16 +2,16 @@ require 'date'
 class Enigma
 
 	def initialize
+		@character_set = ("a".."z").to_a << " "
 	end
 
-	# def encrypt(message, key, date = Date.today.strftime("%d%m%y"))
+	# def encrypt(message, key = generate_key, date = generate_date)
 	#
 	# end
 
-	def generate_key
+	def five_digit_number
 		key_set = []
-		range = 0..9
-		num_set = range.to_a
+		num_set = (0..9).to_a
 		while key_set.count < 5
 			key_set << num_set.sample
 		end
@@ -20,6 +20,12 @@ class Enigma
 
 	def generate_date
 		Date.today.strftime("%d%m%y")
+	end
+
+	def generate_keys(numbers)
+		keys = []
+		numbers.split("").each_cons(2){|num_set| keys << num_set.join}
+		return keys
 	end
 
 end
