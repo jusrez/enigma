@@ -41,6 +41,17 @@ RSpec.describe Enigma do
 		expect(enigma.generate_offsets("040895")[1]).to eq(0)
 		expect(enigma.generate_offsets("040895")[2]).to eq(2)
 		expect(enigma.generate_offsets("040895")[3]).to eq(5)
+	end
+
+	it 'will calculate the final shifts' do
+		enigma = Enigma.new
+
+		expect(enigma.final_shifts("02715","040895")).to be_a(Array)
+		expect(enigma.final_shifts("02715","040895").count).to eq(4)
+		expect(enigma.final_shifts("02715","040895")[0]).to eq(3)
+		expect(enigma.final_shifts("02715","040895")[1]).to eq(27)
+		expect(enigma.final_shifts("02715","040895")[2]).to eq(73)
+		expect(enigma.final_shifts("02715","040895")[3]).to eq(20)
 
 	end
 
