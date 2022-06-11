@@ -14,5 +14,12 @@ RSpec.describe Enigma do
 		expect(enigma.generate_key.length).to eq(5)
 	end
 
+	it 'will generate a date if one is not provided' do
+		enigma = Enigma.new
+
+		expect(enigma.generate_date).to be_a(String)
+		expect(enigma.generate_date.length).to eq(6)
+	end
+
 
 end
