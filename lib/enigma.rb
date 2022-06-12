@@ -13,7 +13,7 @@ class Enigma
 			encrypted_message << @character_set.rotate(@character_set.find_index(letter) + shifts.rotate(i)[0])[0] if @character_set.include?(letter)
 			encrypted_message << letter if @character_set.include?(letter) == false
 		end
-		return encrypted_message.join
+		return Hash(encryption: encrypted_message.join, key: key, date: date)
 	end
 
 	def five_digit_number
