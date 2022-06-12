@@ -59,6 +59,8 @@ RSpec.describe Enigma do
 		enigma = Enigma.new
 
 		expect(enigma.encrypt("hello world","02715","040895")).to eq("keder ohulw")
+		expect(enigma.encrypt("hello world!","02715","040895")).to eq("keder ohulw!")
+		expect(enigma.encrypt("HELLO WORLD","02715","040895")).to eq("keder ohulw")
 	end
 
 
