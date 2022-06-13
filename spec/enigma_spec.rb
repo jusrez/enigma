@@ -1,4 +1,5 @@
 require './lib/enigma'
+require 'date'
 
 RSpec.describe Enigma do
 	it 'exists' do
@@ -71,9 +72,9 @@ RSpec.describe Enigma do
 		enigma = Enigma.new
 
 		expect(enigma.encrypt("hello world", "02715")).to be_a(Hash)
-		expect(enigma.encrypt("hello world")[:encryption]).to be_a(String)
-		expect(enigma.encrypt("hello world")[:date].length).to eq(6)
-		expect(enigma.encrypt("hello world")[:key]).to eq("02715")
+		expect(enigma.encrypt("hello world", "02715")[:encryption]).to be_a(String)
+		expect(enigma.encrypt("hello world", "02715")[:date]).to eq(Date.today.strftime("%d%m%y"))
+		expect(enigma.encrypt("hello world", "02715")[:key]).to eq("02715")
 	end
 
 	it "will encrypt a message (generates random key and uses todays date)" do
@@ -81,11 +82,28 @@ RSpec.describe Enigma do
 
 		expect(enigma.encrypt("hello world")).to be_a(Hash)
 		expect(enigma.encrypt("hello world")[:encryption]).to be_a(String)
-		expect(enigma.encrypt("hello world")[:date].length).to eq(6)
+		expect(enigma.encrypt("hello world")[:date]).to eq(Date.today.strftime("%d%m%y"))
 		expect(enigma.encrypt("hello world")[:key].length).to eq(5)
 	end
 
-	
+	it 'will decrypt a message with a key and date' do
+		enigma = Enigma.new
+
+		expect(enigma.decrypt("keder ohulw","02715","040895")[:decryption]).to eq("hello world")
+		expect(enigma.decrypt("keder ohulw!","02715","040895")[:decryption]).to eq("hello world!")
+		expect(enigma.decrypt("keder ohulw","02715","040895")[:key]).to eq("02715")
+		expect(enigma.decrypt("keder ohulw","02715","040895")[:date]).to eq("040895")
+	end
+
+	it 'will decrypt a message with a key (uses todays date)' do
+		enigma = Enigma.new
+		encrypted = enigma.encrypt("hello world", "02715")
+
+		expect(enigma.decrypt(encrypted[:encryption], "02715")).to be_a(Hash)
+		expect(enigma.decrypt(encrypted[:encryption], "02715")[:decryption]).to be_a(String)
+		expect(enigma.decrypt(encrypted[:encryption], "02715")[:key]).to eq("02715")
+		expect(enigma.decrypt(encrypted[:encryption], "02715")[:date]).to eq(Date.today.strftime("%d%m%y"))
+	end
 
 
 end
