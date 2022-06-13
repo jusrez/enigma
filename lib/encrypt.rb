@@ -1,14 +1,14 @@
 require_relative './enigma.rb'
 
 message_file = File.open(ARGV[0], "r")
-read = message_file.read.chomp
+message = message_file.read.chomp
 
 
 enigma = Enigma.new
-encrypted = enigma.encrypt(read, "02715", "040895")
+encrypted = enigma.encrypt(message, "02715", "040895")
 
-write_file = File.open(ARGV[1], "w")
-write_file.write(encrypted[:encryption])
+encrypted_message = File.open(ARGV[1], "w")
+encrypted_message.write(encrypted[:encryption])
 
 
 puts "Created '#{ARGV[1]}' with the key #{encrypted[:key]} and date #{encrypted[:date]}"
