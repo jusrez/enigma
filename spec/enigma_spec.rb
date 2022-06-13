@@ -55,22 +55,37 @@ RSpec.describe Enigma do
 
 	end
 
-	it 'will encrypt a message' do
+	it 'will encrypt a message with a key and date' do
 		enigma = Enigma.new
 
 		expect(enigma.encrypt("hello world","02715","040895")).to be_a(Hash)
 		expect(enigma.encrypt("hello world","02715","040895")[:encryption]).to eq("keder ohulw")
 		expect(enigma.encrypt("hello world!","02715","040895")[:encryption]).to eq("keder ohulw!")
 		expect(enigma.encrypt("HELLO WORLD","02715","040895")[:encryption]).to eq("keder ohulw")
+		expect(enigma.encrypt("hello world","02715","040895")[:key]).to eq("02715")
+		expect(enigma.encrypt("hello world","02715","040895")[:date]).to eq("040895")
+
 	end
 
-	it 'will encrypt a message without being given a date or key' do
+	it 'will encrypt a message with only a key (uses todays date)' do
 		enigma = Enigma.new
 
+		expect(enigma.encrypt("hello world", "02715")).to be_a(Hash)
 		expect(enigma.encrypt("hello world")[:encryption]).to be_a(String)
-		expect(enigma.encrypt("hello world")[:key].length).to eq(5)
 		expect(enigma.encrypt("hello world")[:date].length).to eq(6)
+		expect(enigma.encrypt("hello world")[:key]).to eq("02715")
 	end
+
+	it "will encrypt a message (generates random key and uses todays date)" do
+		enigma = Enigma.new
+
+		expect(enigma.encrypt("hello world")).to be_a(Hash)
+		expect(enigma.encrypt("hello world")[:encryption]).to be_a(String)
+		expect(enigma.encrypt("hello world")[:date].length).to eq(6)
+		expect(enigma.encrypt("hello world")[:key].length).to eq(5)
+	end
+
+	
 
 
 end
