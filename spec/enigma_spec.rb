@@ -64,5 +64,13 @@ RSpec.describe Enigma do
 		expect(enigma.encrypt("HELLO WORLD","02715","040895")[:encryption]).to eq("keder ohulw")
 	end
 
+	it 'will encrypt a message without being given a date or key' do
+		enigma = Enigma.new
+
+		expect(enigma.encrypt("hello world")[:encryption]).to be_a(String)
+		expect(enigma.encrypt("hello world")[:key].length).to eq(5)
+		expect(enigma.encrypt("hello world")[:date].length).to eq(6)
+	end
+
 
 end
